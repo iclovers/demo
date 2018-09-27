@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>放大镜</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            width: 350px;
+            height: 350px;
+            margin: 100px;
+            border: 1px solid #ccc;
+            position: relative;
+        }
+
+        .big {
+            width: 400px;
+            height: 400px;
+            position: absolute;
+            top: 0;
+            left: 360px;
+            border: 1px solid #ccc;
+            overflow: hidden;
+            display: none;
+        }
+
+        .big img {
+            position: absolute;
+        }
+
+        .mask {
+            width: 175px;
+            height: 175px;
+            background: rgba(255, 255, 0, 0.4);
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            cursor: move;
+            display: none;
+        }
+
+        .small {
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<div class="box" id="box">
+    <div class="small">
+        <img src="images/small.jpg" width="350" alt=""/>
+        <div class="mask"></div>
+    </div>
+    <div class="big">
+        <img src="images/big.jpg" width="800" alt=""/>
+    </div>
+</div>
+<script>
+    var box = document.getElementById('box');
+    var smallBox = box.children[0];
+    var smallImg = box.children[0].children[0];
+    var mask = box.children[0].children[1];
+    var bigBox = box.children[1];
+    var bigImg = box.children[1].children[0];
+    // 设置鼠标移入显示选择框和大图
+    box.onmouseenter = function(e){
+        mask.style.display = 'block';
+        bigBox.style.display = 'block';
+       
+        box.onmousemove = function(e){
+            
+            e = e || window.event;
+            // 鼠标在box内的位置，获取x与box的左边和上边的距离
+            var x = getPage(e).pageX - box.offsetLeft;
+            var y = getPage(e).pageY - box.offsetTop;
+            //mask与box的左边和上边的距离
+            var maskX = x - mask.offsetWidth/2;
+            var maskY = y - mask.offsetHeight/2;
+            //限制mask在盒子内
+            //限制左边和上边框
+            maskX = maskX < 0 ? 0 : maskX ;
+            maskY = maskY < 0 ? 0 : maskY ;
+            // 限制右边和下边框
+            maskX = maskX > box.offsetWidth - mask.offsetWidth ?  box.offsetWidth - mask.offsetWidth : maskX;
+            maskY = maskY > box.offsetHeight - mask.offsetHeight ? box.offsetHeight - mask.offsetHeight : maskY;
+            // mask在box内的位置
+            mask.style.left = maskX + 'px';
+            mask.style.top = maskY + 'px';
+            //求出mask和bigImg最大的移动范围
+            var maskMax = box.offsetWidth - mask.offsetWidth;
+            var bigImgMax = bigImg.offsetWidth - bigBox.offsetWidth
+            //根据比例bigImgX / bigImgMax = maskX / maskMax
+            var bigImgX = maskX * bigImgMax / maskMax;
+            var bigImgY = maskY * bigImgMax / maskMax;
+            bigImg.style.left = -bigImgX + 'px';
+            bigImg.style.top = -bigImgY + 'px';
+        }
+    }
+    bigBox.onmouseenter = box.onmouseleave = function(){
+        mask.style.display = 'none';
+        bigBox.style.display = 'none';
+        box.onmousemove = null;
+    }
+    function goScroll(){
+        var scrollLeft = document.body.scrollLeft || document.documentElement.scrollLeft;
+        var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+        return {
+            scrollLeft : scrollLeft ,
+            scrollTop : scrollTop
+        }
+    }
+    function getPage(e){
+        e = e || window.event
+        var pageX = e.pageX || e.clientX + goScroll().scrollLeft;
+        var pageY = e.pageY || e.clientY + goScroll().scrollTop;
+        return {
+            pageX : pageX,
+            pageY : pageY
+        }
+    }
+</script>
+</body>
+</html>

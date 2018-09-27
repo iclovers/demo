@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>3D轮播图</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .view {
+            position: relative;
+            width: 560px;
+            height: 300px;
+            margin: 100px auto 0;
+        }
+
+        .view>ul {
+            width: 100%;
+            height: 100%;
+            list-style: none;
+            transform-style: preserve-3d;
+            /* transform: rotate3d(1, 1, 0, -33deg); */
+        }
+
+        .view>ul>li {
+            float: left;
+            position: relative;
+            width: 20%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: all 0.5s;
+        }
+
+        .view>ul>li>span {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            /* overflow: hidden; */
+        }
+
+        .view>ul>li>span:nth-of-type(1) {
+            background: url(images/q1.jpg);
+            transform: translateZ(150px);
+        }
+
+        .view>ul>li>span:nth-of-type(2) {
+            background: url(images/q2.jpg);
+            transform: translateY(-150px) rotateX(90deg);
+        }
+
+        .view>ul>li>span:nth-of-type(3) {
+            background: url(images/q3.jpg);
+            transform: translateZ(-150px) rotateX(180deg);
+        }
+
+        .view>ul>li>span:nth-of-type(4) {
+            background: url(images/q4.jpg);
+            transform: translateY(150px) rotateX(-90deg);
+        }
+
+        .view>ul>li:nth-of-type(2)>span {
+            background-position: -100% 0;
+        }
+
+        .view>ul>li:nth-of-type(3)>span {
+            background-position: -200% 0;
+        }
+
+        .view>ul>li:nth-of-type(4)>span {
+            background-position: -300% 0;
+        }
+
+        .view>ul>li:nth-of-type(5)>span {
+            background-position: -400% 0;
+        }
+
+        .btn {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            text-align: center;
+            line-height: 60px;
+            color: #fff;
+            font-size: 30px;
+            background-color: rgba(0, 0, 0, .5);
+            text-decoration: none;
+            top: 50%;
+            margin-top: -30px;
+        }
+
+        .prev {
+            left: 0;
+        }
+
+        .next {
+            right: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="view">
+        <ul>
+            <li>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </li>
+            <li>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </li>
+            <li>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </li>
+            <li>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </li>
+            <li>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </li>
+        </ul>
+        <a href="javascript:;" class="prev btn">&lt;</a>
+        <a href="javascript:;" class="next btn">&gt;</a>
+    </div>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script>
+        $(function () {
+            var r_index = 0;
+            var flag = true;
+            $('.next').on('click', function () {
+                if (flag) {
+                    flag = false;
+                    r_index--;
+                    $('li').each(function (index, value) {
+                        $(this).css({
+                            'transform': ' rotateX(' + r_index * 90 + 'deg)',
+                            'transition-delay': 0.2 * index + 's'
+                        })
+                    })
+                    setTimeout(function () {
+                        flag = true;
+                    }, 1300)
+                }
+            })
+            $('.prev').on('click', function () {
+                if (flag) {
+                    flag = false;
+                    r_index++;
+                    $('li').each(function (index, value) {
+                        $(this).css({
+                            'transform': ' rotateX(' + r_index * 90 + 'deg)',
+                            'transition-delay': 0.2 * index + 's'
+                        })
+                    })
+                    setTimeout(function () {
+                        flag = true;
+                    }, 1300)
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.box{
+    width: 720px;
+    margin: 0 auto;
+    background: black;
+    overflow: hidden;
+    -webkit-filter:blur(15px) saturate(800%);
+    cursor: none;
+    transform-style: preserve-3d;
+}
+.box span{
+    display: block;
+    float: left;
+    width: 80px;
+    height: 60px;
+    background: red;
+    border-radius: 50%;
+    margin: 20px;
+
+}
+.box .repulse{
+    display: block;
+    width: 80px;
+    height: 60px;
+    background: blueviolet;
+    border-radius: 50%;
+    position: absolute;
+    -webkit-filter:saturate(500%);
+    transform: translateZ(1px);
+}

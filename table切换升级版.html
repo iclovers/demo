@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>动态tab切换</title>
+	<style>
+		*{padding: 0;margin: 0;}
+		.clearfix::before,.clearfix:after{
+			clear: both;
+			content: "";
+			display: table;
+			height: 0;
+		}
+		ul li{
+			float: left;
+			list-style: none;
+		}
+		.tab{
+			width: 500px;
+			margin:50px auto 0;
+		}
+		.nav1 li{
+			/*注意没给宽度*/
+			line-height: 40px;
+			text-align:center;
+			border: 1px solid black;
+			box-sizing:border-box;
+		}
+		.nav2 li{
+			width: 100%;
+			height: 300px;
+			text-align: center;
+			line-height: 300px;
+			font-size: 30px;
+			display: none;
+		}
+		ul .active{
+			display: block;
+			color: white;
+		}
+	</style>
+</head>
+<body>
+	<div class="tab">
+		<ul class="nav1 clearfix"></ul>
+		<ul class="nav2 clearfix"></ul>
+	</div>
+	<script>
+		//可动态改变colors的内容来改变显示的颜色以及切换的个数
+		var colors = ["red","orange","yellow",'green','blue','black'];
+		// 获取相关元素
+		var div = document.getElementsByTagName('div')[0];
+		var ulBtn = div.children[0];
+		var ulBox = div.children[1];
+		// 动态创建切换按钮
+		for(var i = 0 ; i < colors.length; i++){
+			var li1 = document.createElement('li');
+			// 设置切换按钮的样式
+			li1.style.width = 1 / colors.length * 100  + '%';   //通过百分比计算宽度
+			li1.style.background = colors[i];
+			li1.innerText = colors[i];
+			li1.style.cursor = 'pointer';
+			li1.style.userSelect = 'none';
+			ulBtn.appendChild(li1);
+			// 当为黑色的时候改变字体颜色，增强体验效果
+			if(colors[i] === 'black'){
+				ulBtn.children[i].style.color = '#555';
+			}
+			//创建nav2 中的元素
+			var li2 = document.createElement('li');
+			li2.style.background = colors[i];
+			li2.innerText = '我是' + colors[i] + '色';
+			li2.style.color = '#fff';
+			ulBox.appendChild(li2);
+		}
+
+		// 初始化
+		ulBtn.children[0].style.color = '#fff'
+		ulBtn.children[0].style.borderBottomColor = colors[0];
+		ulBox.children[0].style.display = 'block'
+		// 给点击按钮注册点击事件
+		for(var i = 0; i < colors.length ; i++){
+			ulBtn.children[i].setAttribute('index',i);
+			ulBtn.children[i].onclick = btnClick;
+		}
+		// 点击事件函数
+		function btnClick (){
+			// 去掉点击的样式
+			for(var i = 0 ; i < colors.length ; i++){
+				ulBtn.children[i].style.color = '';
+				if(colors[i] === 'black'){
+					ulBtn.children[i].style.color = '#555';
+				}
+				ulBtn.children[i].style.borderBottomColor = '#000';
+				ulBox.children[i].style.display = 'none'
+			}
+			// 给当前对象添加点击样式
+			var index = parseInt(this.getAttribute('index'));
+			this.style.color = '#fff';
+			this.style.borderBottomColor = colors[index];
+			ulBox.children[index].style.display = 'block';
+		}
+	</script>
+</body>
+</html>

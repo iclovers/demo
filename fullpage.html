@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>fullpage</title>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/jquery.fullPage.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .section {
+            position: relative;
+            overflow: hidden;
+        }
+        /* 第一屏 */
+        .first {
+            padding-top: 80px;
+        }
+
+        .first .logo {
+            width: 251px;
+            height: 186px;
+            margin: 0 auto;
+            background: url(images/logo.png);
+        }
+
+        .first .text {
+            width: 100%;
+            text-align: center;
+        }
+
+        .first .text img {
+            margin: 30px 30px 0;
+            opacity: 0;
+            transition: all 1s;
+        }
+
+        .first.current .text img {
+            margin: 30px 5px 0;
+            opacity: 1;
+        }
+
+        .intro {
+            width: 772px;
+            height: 49px;
+            margin: 80px auto 0;
+            background: url(images/info_1.png);
+        }
+        /* 第二屏 */
+        .second>div {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .shield {
+            width: 440px;
+            font-size: 0;
+        }
+
+        .second .shield>img {
+            transition: all 1s;
+        }
+
+        .second.current .shield>img {
+            transform: none;
+        }
+
+        .shield>img:nth-of-type(1) {
+            transform: translate(-70px) rotate(50deg);
+        }
+
+        .shield>img:nth-of-type(2) {
+            transform: translate(-60px) rotate(180deg);
+        }
+
+        .shield>img:nth-of-type(3) {
+            transform: translate(200px) rotate(120deg);
+        }
+
+        .shield>img:nth-of-type(4) {
+            transform: translate(-100px) rotate(210deg);
+        }
+
+        .shield>img:nth-of-type(5) {
+            transform: translate(100px) rotate(-130deg);
+        }
+
+        .shield>img:nth-of-type(6) {
+            transform: translate(-90px) rotate(50deg);
+        }
+
+        .shield>img:nth-of-type(7) {
+            transform: translate(80px) rotate(-30deg);
+        }
+
+        .shield>img:nth-of-type(8) {
+            transform: translate(89px) rotate(-160deg);
+        }
+
+        .shield>img:nth-of-type(9) {
+            transform: translate(-40px) rotate(90deg);
+        }
+
+        .second .info {
+            width: 635px;
+            height: 309px;
+            background: url(images/info_2.png);
+        }
+        /* 第三屏 */
+        .third .info {
+            position: absolute;
+            width: 631px;
+            height: 278px;
+            left: 50%;
+            top: 50%;
+            background: url(images/info_3.png);
+            transform: translate(-100%, -50%);
+        }
+        .third .circle {
+            position: absolute;
+            width: 453px;
+            height: 449px;
+            right: 50%;
+            top: 50%;
+            background: url(images/circle.png);
+            transform: translate(120%, -50%);
+        }
+        .third .circle > .rocket {
+            position: absolute;
+            width: 203px;
+            height: 204px;
+            left: -400px;
+            top: 700px;
+            background: url(images/rocket.png);
+            transform: translate(-50%, -50%);
+            transition: all 1s;
+        }
+        .third.current .circle > .rocket {
+            left: 50%;
+            top: 50%;
+        }
+        /* 第四屏 */
+        .fourth .search {
+            position: absolute;
+            width: 529px;
+            height: 438px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-110%, -50%);
+            overflow: hidden;
+        }
+        .fourth .search > .searchBar {
+            position: absolute;
+            width: 529px;
+            height: 66px;
+            left: -100%;
+            top: 0;
+            background: url(images/search.png);
+            transition: all 1s;
+        }
+        .fourth.current .search > .searchBar {
+            left: 0;
+        }
+        .fourth .search > .searchText {
+            position: absolute;
+            width: 0;
+            height: 22px;
+            left: 15px;
+            top: 23px;
+            background: url(images/key.png);
+            transition: all 1s 1s steps(5);
+        }
+        .fourth.current .search > .searchText {
+            width: 99px;
+        }
+        .fourth .search > .searchResult {
+            position: absolute;
+            width: 529px;
+            height: 0;
+            left: 0;
+            top: 66px;
+            background: url(images/result.png);
+            transition: all 1s 2.1s;
+        }
+        .fourth.current .search > .searchResult {
+            height: 372px;
+        }
+        .fourth .info {
+            position: absolute;
+            width: 612px;
+            height: 299px;
+            background: url(images/info_4.png);
+            left: 50%;
+            top: 50%;
+            transform: translate(0, -50%);
+        }
+        /* 第五屏 */
+        .fifth .info {
+            position: relative;
+            width: 100%;
+            height: 134px;
+            background: url(images/info_5.png) no-repeat center top;
+        }
+        .fifth .box {
+            position: relative;
+            width: 1008px;
+            height: 400px;
+            margin: 20px auto 0;
+        }
+        .fifth .box > .box_hd {
+            position: absolute;
+            width: 1004px;
+            height: 79px;
+            left: 2px;
+            top: 2px;
+            background: url(images/toolbar.png);
+        }
+        .fifth .box > .box_ft {
+            position: absolute;
+            width: 394px;
+            height: 29px;
+            bottom: 2px;
+            right: 2px;
+            background: url(images/extra.png);
+        }
+        .fifth .box > .border_line {
+            position: absolute;
+            background-color: #fff;
+            transition: all 1s;
+        }
+        .fifth .box > .border_left {
+            width: 2px ;
+            height: 400px;
+            left: 0;
+            top: -600px;
+        }
+        .fifth.current .box > .border_left {
+            top: 0;
+        }
+        .fifth .box > .border_right {
+            width: 2px ;
+            height: 400px;
+            right: 0;
+            top: -600px;
+        }
+        .fifth.current .box > .border_right {
+            top: 0;
+        }
+        .fifth .box > .border_right {
+            width: 2px ;
+            height: 400px;
+            right: 0;
+            top: 800px;
+        }
+        .fifth.current .box > .border_right {
+            top: 0;
+        }
+        .fifth .box > .border_top {
+            width: 1008px ;
+            height: 2px;
+            right: -1200px;
+            top: 0;
+        }
+        .fifth.current .box > .border_top {
+            right: 0;
+        }
+        .fifth .box > .border_bottom {
+            width: 1008px ;
+            height: 2px;
+            left: -1200px;
+            bottom: 0;
+        }
+        .fifth.current .box > .border_bottom {
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="page">
+        <div class="section first">
+            <div class="logo"></div>
+            <div class="text">
+                <img src="images/text_1.png" alt="">
+                <img src="images/text_2.png" alt="">
+                <img src="images/text_3.png" alt="">
+                <img src="images/text_4.png" alt="">
+                <img src="images/text_5.png" alt="">
+                <img src="images/text_6.png" alt="">
+                <img src="images/text_7.png" alt="">
+                <img src="images/text_8.png" alt="">
+            </div>
+            <div class="intro"></div>
+        </div>
+        <div class="section second">
+            <div class="shield">
+                <img src="images/shield_1.png" alt="">
+                <img src="images/shield_2.png" alt="">
+                <img src="images/shield_3.png" alt="">
+                <img src="images/shield_4.png" alt="">
+                <img src="images/shield_5.png" alt="">
+                <img src="images/shield_6.png" alt="">
+                <img src="images/shield_7.png" alt="">
+                <img src="images/shield_8.png" alt="">
+                <img src="images/shield_9.png" alt="">
+            </div>
+            <div class="info"></div>
+        </div>
+        <div class="section third">
+            <div class="info"></div>
+            <div class="circle">
+                <div class="rocket"></div>
+            </div>
+        </div>
+        <div class="section fourth">
+            <div class="search">
+                <div class="searchBar"></div>
+                <div class="searchText"></div>
+                <div class="searchResult"></div>
+            </div>
+            <div class="info"></div>
+        </div>
+        <div class="section fifth">
+            <div class="info"></div>
+            <div class="box">
+                <div class="box_hd"></div>
+                <div class="box_ft"></div>
+                <div class="border_line border_left"></div>
+                <div class="border_line border_top"></div>
+                <div class="border_line border_right"></div>
+                <div class="border_line border_bottom"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $('#page').fullpage({
+                sectionsColor: ['#0da5d6', '#2AB561', '#DE8910', '#16BA9D', '#0DA5D6'],
+                afterLoad: function (a, b) {
+                    $('.section').removeClass('current');
+                    setTimeout(function () {
+                        $('.section').eq(b - 1).addClass('current');
+                    })
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>

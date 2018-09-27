@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .container {
+            width: 560px;
+            height: 380px;
+            list-style: none;
+            padding: 0px;
+            margin: 100px auto;
+            border: 1px solid gray;
+            position: relative;
+            display: flex;
+        }
+
+        li {
+            width: 25%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: all 1s;
+        }
+
+        li > div {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .first {
+            background: url("imgs/01.jpg");
+            transform: rotateX(0deg) translateZ(190px);
+        }
+
+        .two {
+            background: url("imgs/02.jpg");
+            transform: rotateX(-90deg) translateZ(190px);
+        }
+
+        .three {
+            background: url("imgs/03.jpg");
+            transform: rotateX(-180deg) translateZ(190px);
+        }
+
+        .four {
+            background: url("imgs/04.jpg");
+            transform: rotateX(-270deg) translateZ(190px);
+        }
+
+        ul a {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            background-color: skyblue;
+            color: white;
+            top: 50%;
+            margin-top: -20px;
+            text-decoration: none;
+            border-radius: 50%;
+            font-size: 30px;
+            font-weight: 900;
+        }
+
+        .left {
+            left: -41px;
+        }
+
+        .right {
+            right: -41px;
+        }
+
+        li:nth-child(2) {
+            transition: all 1s .1s;
+        }
+
+        li:nth-child(2) div {
+            background-position: -140px 0;
+
+        }
+
+        li:nth-child(3) {
+            transition: all 1s .2s;
+        }
+
+        li:nth-child(3) div {
+            background-position: -280px 0;
+
+        }
+
+        li:nth-child(4) {
+            transition: all 1s .3s;
+        }
+
+        li:nth-child(4) div {
+            background-position: -420px 0;
+
+        }
+    </style>
+    <script src="js/jquery-3.0.0.min.js"></script>
+    <script>
+        var clickCount = 0;
+
+        $(function () {
+               var flag=true;
+            $(".left").click(function(){
+                if(flag){
+                    flag=false;
+                    clickCount--;
+                    $("li").css({
+                        transform:"rotateX("+clickCount*90+"deg)"
+                    })
+                    setTimeout(function(){
+                        flag=true;
+                    },1300)
+                }
+
+            })
+            $(".right").click(function () {
+//                console.log(flag)
+                if(flag){
+                    flag=false;
+//                    console.log(flag);
+                    clickCount++;
+                    $("li").css({
+                        transform: "rotateX(" + clickCount * 90 + "deg)"
+                    })
+//                    flag=true;
+//                    console.log(flag)
+                   setTimeout(function(){
+                       flag=true;
+                   },1300)
+                }
+            })
+
+        })
+    </script>
+</head>
+<body>
+<ul class="container">
+    <li>
+        <div class="first"></div>
+        <div class="two"></div>
+        <div class="three"></div>
+        <div class="four"></div>
+    </li>
+    <li>
+        <div class="first"></div>
+        <div class="two"></div>
+        <div class="three"></div>
+        <div class="four"></div>
+    </li>
+    <li>
+        <div class="first"></div>
+        <div class="two"></div>
+        <div class="three"></div>
+        <div class="four"></div>
+    </li>
+    <li>
+        <div class="first"></div>
+        <div class="two"></div>
+        <div class="three"></div>
+        <div class="four"></div>
+    </li>
+
+
+    <a href="javascript:void(0)" class="left">&lt;</a>
+    <a href="javascript:void(0)" class="right">&gt;</a>
+</ul>
+</body>
+</html>

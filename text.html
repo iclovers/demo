@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>伪元素</title>
+    <style>
+        .text {
+            font-size: 60px;
+            font-weight: 700;
+        }
+
+        .text1 {
+            color: transparent;
+            background: linear-gradient(#9715e2, #1df016);
+            -webkit-background-clip: text;
+        }
+
+        .text1::first-letter {
+            background: linear-gradient(#15e215, #16a0f0);
+            -webkit-background-clip: text;
+            color: transparent;
+            font-size: 120px;
+            float: left;
+        }
+
+        .text1::first-line {
+            color: #9715e2;
+        }
+
+        .text2 {
+            margin-right: 20px;
+            font-size: 200px;
+            color: #ccc;
+            text-shadow: -1px -1px 0 #000, 1px 1px 0 #fff;
+            background-color: #ccc;
+        }
+
+        .text3 {
+            font-size: 200px;
+            color: #ccc;
+            text-shadow: -1px -1px 0 #fff, 1px 1px 0 #000;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <p class="text text1">
+        愿你三春暖，愿你冬不寒，愿你天黑有灯，下雨有伞，一路有良人相伴
+    </p><br/>
+    <span class="text text2">LOVE</span>
+    <span class="text text3">LIFE</span>
+</body>
+
+</html>

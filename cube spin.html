@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  padding: 100px;
+  font-family: Arial, sans-serif;
+}
+
+h1, h2, h3, p {
+  margin: 0 0 1em;
+}
+
+.wrap:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.box-rotate-wrap {
+  float: left;
+  margin: 0 30px 30px 0;
+  perspective: 1000px;
+}
+
+.box, .box > div {
+  width: 200px;
+  height: 200px;
+}
+
+.box-rotate {
+  position: relative;
+  transition: all 0.8s ease;
+  transform-style: preserve-3d;
+  transform: translate3d(0, 0, -100px);
+}
+
+.box-rotate > div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background: #fff;
+  padding: 20px;
+  overflow: auto;
+}
+
+.box-rotate img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.box-rotate .front {
+  background: red;
+  z-index: 2;
+  transform: rotate3d(0, 1, 0, 0deg) translate3d(0, 0, 100px);
+}
+
+.box-rotate .back {
+  background: orange;
+  transform: rotate3d(0, 1, 0, 180deg) rotate(180deg) translate3d(0, 0, 100px);
+}
+
+.box-rotate .top {
+  background: purple;
+  height: 200px;
+  transform: rotate3d(1, 0, 0, 90deg) translate3d(0, 0, 100px);
+}
+
+.box-rotate .bottom {
+  background: blue;
+  height: 200px;
+  transform: rotate3d(1, 0, 0, -90deg) translate3d(0, 0, 100px);
+}
+
+.box-rotate .left {
+  background: yellow;
+  transform: rotate3d(0, 1, 0, -90deg) translate3d(0, 0, 100px);
+}
+
+.box-rotate .right {
+  background: green;
+  transform: rotate3d(0, 1, 0, 90deg) translate3d(0, 0, 100px);
+}
+
+.box-rotate-top:hover {
+  transform: translate3d(0, 0, -100px) rotate3d(1, 0, 0, -90deg);
+}
+
+.box-rotate-bottom:hover {
+  transform: translate3d(0, 0, -100px) rotate3d(1, 0, 0, 90deg);
+}
+
+.box-rotate-left:hover {
+  transform: translate3d(0, 0, -100px) rotate3d(0, 1, 0, 90deg);
+}
+
+.box-rotate-right:hover {
+  transform: translate3d(0, 0, -100px) rotate3d(0, 1, 0, -90deg);
+}
+
+.box-rotate-back:hover {
+  transform: translate3d(0, 0, -100px) rotate3d(1, 0, 0, -180deg);
+}
+
+.box-rotate-gyro .back {
+  width: 200px;
+  height: 200px;
+  transform: rotate3d(0, 1, 0, 180deg) rotate(90deg) translate3d(0px, 0px, 100px);
+}
+
+.box-rotate-gyro:hover {
+  transform: translate3d(0, 0, -100px) rotate3d(1, 1, 0, -180deg);
+}
+
+.box.box-blend div {
+  background: #fff;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.8);
+}
+
+	</style>
+</head>
+<body>
+	<h1>Fun with CSS</h1>
+
+<div class="wrap wrap-defaults">
+  <div class="box-rotate-wrap">
+    <div class="box box-rotate box-rotate-top">
+      <div class="front">
+        <h2>Front</h2> This is on front.
+      </div>
+      <div class="back">
+        <h2>Back</h2>
+      </div>
+      <div class="top">
+        <h2>Top</h2> This is what will be shown.
+      </div>
+      <div class="bottom">
+        <h2>Bottom</h2>
+      </div>
+      <div class="left">
+        <h2>Left</h2>
+      </div>
+      <div class="right">
+        <h2>Right</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="box-rotate-wrap">
+    <div class="box box-rotate box-rotate-bottom">
+      <div class="front">
+        <h2>Front</h2> This is on front.
+      </div>
+      <div class="back">
+        <h2>Back</h2>
+      </div>
+      <div class="top">
+        <h2>Top</h2>
+      </div>
+      <div class="bottom">
+        <h2>Bottom</h2> This is what will be shown.
+      </div>
+      <div class="left">
+        <h2>Left</h2>
+      </div>
+      <div class="right">
+        <h2>Right</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="box-rotate-wrap">
+    <div class="box box-rotate box-rotate-left">
+      <div class="front">
+        <h2>Front</h2> This is on front.
+      </div>
+      <div class="back">
+        <h2>Back</h2>
+      </div>
+      <div class="top">
+        <h2>Top</h2>
+      </div>
+      <div class="bottom">
+        <h2>Bottom</h2>
+      </div>
+      <div class="left">
+        <h2>Left</h2> This is what will be shown.
+      </div>
+      <div class="right">
+        <h2>Right</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="box-rotate-wrap">
+    <div class="box box-rotate box-rotate-right">
+      <div class="front">
+        <h2>Front</h2> This is on front.
+      </div>
+      <div class="back">
+        <h2>Back</h2>
+      </div>
+      <div class="top">
+        <h2>Top</h2>
+      </div>
+      <div class="bottom">
+        <h2>Bottom</h2>
+      </div>
+      <div class="left">
+        <h2>Left</h2>
+      </div>
+      <div class="right">
+        <h2>Right</h2> This is what will be shown.
+      </div>
+    </div>
+  </div>
+
+  <div class="box-rotate-wrap">
+    <div class="box box-rotate box-rotate-back">
+      <div class="front">
+        <h2>Front</h2> This is on front.
+      </div>
+      <div class="back">
+        <h2>Back</h2> This is what will be shown.
+      </div>
+      <div class="top">
+        <h2>Top</h2>
+      </div>
+      <div class="bottom">
+        <h2>Bottom</h2>
+      </div>
+      <div class="left">
+        <h2>Left</h2>
+      </div>
+      <div class="right">
+        <h2>Right</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="box-rotate-wrap">
+    <div class="box box-rotate box-rotate-gyro">
+      <div class="front">
+        <h2>Front</h2> This is on front.
+      </div>
+      <div class="back">
+        <h2>Back</h2> This is what will be shown.
+      </div>
+      <div class="top">
+        <h2>Top</h2>
+      </div>
+      <div class="bottom">
+        <h2>Bottom</h2>
+      </div>
+      <div class="left">
+        <h2>Left</h2>
+      </div>
+      <div class="right">
+        <h2>Right</h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap wrap-blank">
+  <div class="box-rotate-wrap">
+    <div class="box box-blend box-rotate box-rotate-top">
+      <div class="front">
+        <h2>Front</h2> This is on front.
+      </div>
+      <div class="back">
+        <h2>Back</h2>
+      </div>
+      <div class="top">
+        <h2>Top</h2> This is what will be shown.
+      </div>
+      <div class="bottom">
+        <h2>Bottom</h2>
+      </div>
+      <div class="left">
+        <h2>Left</h2>
+      </div>
+      <div class="right">
+        <h2>Right</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="box-rotate-wrap">
+    <div class="box box-blend box-rotate box-rotate-bottom">
+      <div class="front">
+        <h2>Front</h2> This is on front.
+      </div>
+      <div class="back">
+        <h2>Back</h2>
+      </div>
+      <div class="top">
+        <h2>Top</h2>
+      </div>
+      <div class="bottom">
+        <h2>Bottom</h2> This is what will be shown.
+      </div>
+      <div class="left">
+        <h2>Left</h2>
+      </div>
+      <div class="right">
+        <h2>Right</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="box-rotate-wrap">
+    <div class="box box-blend box-rotate box-rotate-left">
+      <div class="front">
+        <h2>Front</h2> This is on front.
+      </div>
+      <div class="back">
+        <h2>Back</h2>
+      </div>
+      <div class="top">
+        <h2>Top</h2>
+      </div>
+      <div class="bottom">
+        <h2>Bottom</h2>
+      </div>
+      <div class="left">
+        <h2>Left</h2> This is what will be shown.
+      </div>
+      <div class="right">
+        <h2>Right</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="box-rotate-wrap">
+    <div class="box box-blend box-rotate box-rotate-right">
+      <div class="front">
+        <h2>Front</h2> This is on front.
+      </div>
+      <div class="back">
+        <h2>Back</h2>
+      </div>
+      <div class="top">
+        <h2>Top</h2>
+      </div>
+      <div class="bottom">
+        <h2>Bottom</h2>
+      </div>
+      <div class="left">
+        <h2>Left</h2>
+      </div>
+      <div class="right">
+        <h2>Right</h2> This is what will be shown.
+      </div>
+    </div>
+  </div>
+
+  <div class="box-rotate-wrap">
+    <div class="box box-blend box-rotate box-rotate-back">
+      <div class="front">
+        <h2>Front</h2> This is on front.
+      </div>
+      <div class="back">
+        <h2>Back</h2> This is what will be shown.
+      </div>
+      <div class="top">
+        <h2>Top</h2>
+      </div>
+      <div class="bottom">
+        <h2>Bottom</h2>
+      </div>
+      <div class="left">
+        <h2>Left</h2>
+      </div>
+      <div class="right">
+        <h2>Right</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="box-rotate-wrap">
+    <div class="box box-blend box-rotate box-rotate-gyro">
+      <div class="front">
+        <h2>Front</h2> This is on front.
+      </div>
+      <div class="back">
+        <h2>Back</h2> This is what will be shown.
+      </div>
+      <div class="top">
+        <h2>Top</h2>
+      </div>
+      <div class="bottom">
+        <h2>Bottom</h2>
+      </div>
+      <div class="left">
+        <h2>Left</h2>
+      </div>
+      <div class="right">
+        <h2>Right</h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap wrap-special">
+  <div class="box-rotate-wrap">
+    <div class="box box-rotate box-rotate-top">
+      <div class="front">
+        <img src="https://placekitten.com/170/170/" alt="Kitten" title="Meow!" />
+      </div>
+      <div class="back">
+        <img src="https://placekitten.com/160/160/" alt="Kitten" title="Meow!" />
+      </div>
+      <div class="top">
+        <img src="https://placekitten.com/175/175/" alt="Kitten" title="Meow!" />
+      </div>
+      <div class="bottom">
+        <img src="https://placekitten.com/180/180/" alt="Kitten" title="Meow!" />
+      </div>
+      <div class="left">
+        <img src="https://placekitten.com/200/200/" alt="Kitten" title="Meow!" />
+      </div>
+      <div class="right">
+        <img src="https://placekitten.com/225/225/" alt="Kitten" title="Meow!" />
+      </div>
+    </div>
+  </div>
+
+  <div class="box-rotate-wrap">
+    <div class="box box-rotate box-rotate-bottom">
+      <div class="front">
+        <img src="https://placekitten.com/170/170/" alt="Kitten" title="Meow!" />
+      </div>
+      <div class="back">
+        <img src="https://placekitten.com/160/160/" alt="Kitten" title="Meow!" />
+      </div>
+      <div class="top">
+        <img src="https://placekitten.com/175/175/" alt="Kitten" title="Meow!" />
+      </div>
+      <div class="bottom">
+        <img src="https://placekitten.com/180/180/" alt="Kitten" title="Meow!" />
+      </div>
+      <div class="left">
+        <img src="https://placekitten.com/200/200/" alt="Kitten" title="Meow!" />
+      </div>
+      <div class="right">
+        <img src="https://placekitten.com/225/225/" alt="Kitten" title="Meow!" />
+      </div>
+    </div>
+  </div>
+
+  <div class="box-rotate-wrap">
+    <div class="box box-rotate box-rotate-left">
+      <div class="front">
+        <img src="https://placekitten.com/170/170/" alt="Kitten" title="Meow!" />
+      </div>
+      <div class="back">
+        <img src="https://placekitten.com/160/160/" alt="Kitten" title="Meow!" />
+      </div>
+      <div class="top">
+        <img src="https://placekitten.com/175/175/" alt="Kitten" title="Meow!" />
+      </div>
+      <div class="bottom">
+        <img src="https://placekitten.com/180/180/" alt="Kitten" title="Meow!" />
+      </div>
+      <div class="left">
+        <img src="https://placekitten.com/200/200/" alt="Kitten" title="Meow!" />
+      </div>
+      <div class="right">
+        <img src="https://placekitten.com/225/225/" alt="Kitten" title="Meow!" />
+      </div>
+    </div>
+  </div>
+  <div class="box-rotate-wrap">
+    <div class="box box-rotate box-rotate-right">
+      <div class="front">
+        <img src="https://placekitten.com/170/170/" alt="Kitten" title="Meow!" />
+      </div>
+      <div class="back">
+        <img src="https://placekitten.com/160/160/" alt="Kitten" title="Meow!" />
+      </div>
+      <div class="top">
+        <img src="https://placekitten.com/175/175/" alt="Kitten" title="Meow!" />
+      </div>
+      <div class="bottom">
+        <img src="https://placekitten.com/180/180/" alt="Kitten" title="Meow!" />
+      </div>
+      <div class="left">
+        <img src="https://placekitten.com/200/200/" alt="Kitten" title="Meow!" />
+      </div>
+      <div class="right">
+        <img src="https://placekitten.com/225/225/" alt="Kitten" title="Meow!" />
+      </div>
+    </div>
+  </div>
+
+  <div class="box-rotate-wrap">
+    <div class="box box-rotate box-rotate-back">
+      <div class="front">
+        <img src="https://placekitten.com/170/170/" alt="Kitten" title="Meow!" />
+      </div>
+      <div class="back">
+        <img src="https://placekitten.com/160/160/" alt="Kitten" title="Meow!" />
+      </div>
+      <div class="top">
+        <img src="https://placekitten.com/175/175/" alt="Kitten" title="Meow!" />
+      </div>
+      <div class="bottom">
+        <img src="https://placekitten.com/180/180/" alt="Kitten" title="Meow!" />
+      </div>
+      <div class="left">
+        <img src="https://placekitten.com/200/200/" alt="Kitten" title="Meow!" />
+      </div>
+      <div class="right">
+        <img src="https://placekitten.com/225/225/" alt="Kitten" title="Meow!" />
+      </div>
+    </div>
+  </div>
+
+  <div class="box-rotate-wrap">
+    <div class="box box-rotate box-rotate-gyro">
+      <div class="front">
+        <img src="https://placekitten.com/170/170/" alt="Kitten" title="Meow!" />
+      </div>
+      <div class="back">
+        <img src="https://placekitten.com/160/160/" alt="Kitten" title="Meow!" />
+      </div>
+      <div class="top">
+        <img src="https://placekitten.com/175/175/" alt="Kitten" title="Meow!" />
+      </div>
+      <div class="bottom">
+        <img src="https://placekitten.com/180/180/" alt="Kitten" title="Meow!" />
+      </div>
+      <div class="left">
+        <img src="https://placekitten.com/200/200/" alt="Kitten" title="Meow!" />
+      </div>
+      <div class="right">
+        <img src="https://placekitten.com/225/225/" alt="Kitten" title="Meow!" />
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

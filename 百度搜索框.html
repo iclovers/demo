@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>百度一下</title>
+</head>
+<body>
+	<script>
+	// 思路：首先用JavaScript写出页面基本显示部分；利用键盘按键抬起事件来触发提示框；创建一个数组用于存放提示的字符串，取出输入框的内容与数组比对选出符合要求的存入新数组，便于后续显示。提示框需要判断出是否存在，防止重复，当删除字符后（即空字符串）提示框需要移除（即当次过程中提示框不能重复，当不满足时及时移除）。
+
+
+
+		//创建一个数组，用来存放提示的标题（字符串）
+		var array = ['小赵在踢球','小钱在数钱','小李最猥琐','小丁在打豆豆','小丁喜欢玩游戏','天王盖地虎','小鸡炖蘑菇','天空很蓝','好想看大海','好好学习','前端学习HMLT','前端学习CSS','前端学习JavaScript','不忘初心','不念过往','不惧未来','不要告诉永恒是什么','刹那永痕','面朝大海','春暖花开','潘雅婷在画画'];
+		//取出body标签，用于添加其他标签
+		var oBody = document.getElementsByTagName('body')[0];
+		//创建div标签，并设置属性，用来存放输入框和按钮
+		var oDiv = document.createElement('div');
+		oBody.appendChild(oDiv);
+		oDiv.style.width = '401px';
+		oDiv.style.margin = '200px auto 0';
+		//创建输入框，并设置属性
+		var oIpt = document.createElement('input');
+		oDiv.appendChild(oIpt);
+		oIpt.style.width = '350px';
+		oIpt.style.height = '30px';
+		//创建按钮，并设置属性
+		var oBtn = document.createElement('input');
+		oDiv.appendChild(oBtn);
+		oBtn.type = 'button';
+		oBtn.style.height = '36px';
+		oBtn.style.marginLeft = '4px';
+		oBtn.style.cursor = 'pointer';
+		oBtn.value = '搜索';
+		//注册键盘按键抬起事件
+		oIpt.onkeyup = function () {
+			//设置一个空数组，用来存放对应字符串
+			var newArray = [];
+			//遍历数组中的每一项，判断是否有对应的项
+			for (var i = 0 ; i < array.length ; i++) {
+				//排除空字符串的影响，因为空字符串可以匹配所有项（当将输入文本全部删除后，为空字符串），
+				if(oIpt.value){
+					if(array[i].indexOf(oIpt.value) == 0) {
+						newArray[newArray.length] = array[i];
+					}
+				}	
+			}
+			//判断是否有匹配项，若是有则需要创建提示框
+			if (newArray.length) {
+				//每次有按键变化时，先清除原来的提示框，不然当输入变化时（临时数组里仍然有数），原来的提示框不会被删除
+				if(oDiv.getElementsByTagName('div')[0]){
+					var myBox = oDiv.getElementsByTagName('div')[0]
+					oDiv.removeChild(myBox);
+				}
+				//当有多个字匹配时，会出现多个输入框，需要清除多余输入框
+				if(!oDiv.getElementsByTagName('div')[0]){
+					//设置提示框
+					var oBox = document.createElement('div');
+					oDiv.appendChild(oBox);
+					oBox.style.width = '351px';
+					oBox.style.border = '1px solid #ccc';
+
+					//在提示框展示出提示的文本
+					//创建一个ul标签
+					var oUl = document.createElement('ul');
+					oBox.appendChild(oUl);
+					oUl.style.padding = 0;
+					oUl.style.margin = 0;
+					for(var j = 0 ; j < newArray.length; j++) {
+						var oLi = document.createElement('li');
+						oUl.appendChild(oLi);
+						oLi.style.listStyle ='none';
+						oLi.innerText = newArray[j];
+						oLi.style.lineHeight = '30px';
+						oLi.style.paddingLeft = '5px'
+						oLi.style.cursor = 'pointer';
+						oLi.style.marginTop = '5px';
+					}
+					var myLi = document.getElementsByTagName('li');
+					//遍历li
+					for(var k = 0 ; k < myLi.length; k++) {
+						//添加鼠标移入事件
+						myLi[k].onmouseover = function () {
+							this.style.backgroundColor = 'skyblue';
+						}
+						//添加鼠标移出事件
+						myLi[k].onmouseout = function () {
+							this.style.backgroundColor = '';
+						}						
+					}
+				}	
+			}else {
+				//当newArray.length == 0 时，需要移除提示框
+				if(oDiv.getElementsByTagName('div')[0]){
+					var myBox = oDiv.getElementsByTagName('div')[0]
+					oDiv.removeChild(myBox);
+				}
+			}   			
+		}
+	</script>
+
+</body>
+</html>

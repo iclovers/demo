@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>weather</title>
+    <script src="./js/jquery-3.3.1.min.js"></script>
+    <script src="./js/template-native.js"></script>
+</head>
+
+<body>
+    <table border=1>
+        <thead>
+            <tr>
+                <th>date</th>
+                <th>dayPictureUrl</th>
+                <th>nightPictureUrl</th>
+                <th>temperature</th>
+                <th>weather</th>
+                <th>wind</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- 动态天气数据 -->
+        </tbody>
+    </table>
+    <!-- 引擎模板，记得更改type，否则会报错 -->
+    <script type="text/html" id="weatherTemp">
+        <%for (var i = 0; i < items.length; i++){ %>
+            <tr>
+                <td><%=items[i].date%></td>
+                <td><img src="<%=items[i].dayPictureUrl%>" alt=""></td>
+                <td><img src="<%=items[i].nightPictureUrl%>" alt=""></td>
+                <td><%=items[i].temperature%></td>
+                <td><%=items[i].weather%></td>
+                <td><%=items[i].wind%></td>
+            </tr>
+        <% } %>
+    </script>
+
+    <script>
+        $.ajax({
+            type: 'post',
+            url: 'http://api.map.baidu.com/telematics/v3/weather',               //接口
+            data: {
+                ak: 'zVo5SStav7IUiVON0kuCogecm87lonOj',                             //秘钥，必填
+                location: '长沙',                                                     //地点，必填
+                output: 'json'                                                       //输出的数据格式
+            },
+            dataType: 'jsonp',
+            success: function (result) {
+                //调用引擎模板
+                var html = template('weatherTemp', { 'items': result.results[0].weather_data });
+                document.querySelector('tbody').innerHTML = html;
+            }
+        })
+    </script>
+</body>
+
+</html>

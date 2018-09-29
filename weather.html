@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <title>weather</title>
     <script src="./js/jquery-3.3.1.min.js"></script>
-    <script src="./js/template-native.js"></script>
+    <script src="./js/template/template-web.js"></script>
 </head>
 
 <body>
@@ -26,8 +26,9 @@
             <!-- 动态天气数据 -->
         </tbody>
     </table>
-    <!-- 引擎模板，记得更改type，否则会报错 -->
-    <script type="text/html" id="weatherTemp">
+    <!-- 引擎模板，记得更改type，原来的默认为text/javascript,需要改成非javascript,避免它执行 -->
+    <!-- 原生js语法 -->
+    <!-- <script type="text/html" id="weatherTemp">
         <%for (var i = 0; i < items.length; i++){ %>
             <tr>
                 <td><%=items[i].date%></td>
@@ -38,8 +39,20 @@
                 <td><%=items[i].wind%></td>
             </tr>
         <% } %>
+    </script> -->
+    <!-- 简版语法 -->
+    <script type="text/html" id="weatherTemp">
+        {{each items value index}}
+            <tr>
+                <td>{{items[index].date}}</td>
+                <td><img src="{{value.dayPictureUrl}}" alt=""></td>
+                <td><img src="{{value.nightPictureUrl}}" alt=""></td>
+                <td>{{value.temperature}}</td>
+                <td>{{value.weather}}</td>
+                <td>{{value.wind}}</td>
+            </tr>
+        {{/each}}
     </script>
-
     <script>
         $.ajax({
             type: 'post',
